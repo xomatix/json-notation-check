@@ -9,4 +9,6 @@ $echo.kkk.aaa.sss[]:string
 
 $metadata.version:number
 
-$title:string
+$categories[].items[].id:number
+$categories[].items[].name:string
+$categories[].items[].details:object

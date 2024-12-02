@@ -1,26 +1,98 @@
 {
-  "title": "Example JSON",
-  "tags": ["json", "example", "data"],
+  "title": "Advanced JSON Example",
+  "tags": ["json", "example", "data", "advanced"],
   "metadata": {
-    "author": "John Doe",
-    "version": 1.0,
-    "published": true
+    "author": {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "social": {
+        "twitter": "@johndoe",
+        "github": "johndoe"
+      }
+    },
+    "version": 2.1,
+    "published": true,
+    "lastUpdated": "2024-11-20T10:00:00Z"
   },
-  "items": [
+  "categories": [
     {
-      "id": 1,
-      "name": "Item One",
-      "price": 9.99
+      "categoryName": "Electronics",
+      "items": [
+        {
+          "id": 1,
+          "name": "Smartphone",
+          "details": {
+            "price": 699.99,
+            "brand": "TechBrand",
+            "specifications": {
+              "screenSize": "6.5 inches",
+              "batteryLife": "24 hours",
+              "features": ["5G", "Waterproof", "Wireless Charging"]
+            }
+          }
+        },
+        {
+          "id": 2,
+          "name": "Laptop",
+          "details": {
+            "price": 1199.99,
+            "brand": "ComputeTech",
+            "specifications": {
+              "processor": "Intel i7",
+              "ram": "16GB",
+              "storage": "512GB SSD"
+            }
+          }
+        }
+      ]
     },
     {
-      "id": 2,
-      "name": "Item Two",
-      "price": 19.99
-    },
-    {
-      "id": 3,
-      "name": "Item Three",
-      "price": 14.99
+      "categoryName": "Books",
+      "items": [
+        {
+          "id": 3,
+          "name": "Learning JSON",
+          "details": {
+            "price": 24.99,
+            "author": "Jane Smith",
+            "genre": "Technology",
+            "ratings": {
+              "average": 4.5,
+              "reviews": [
+                {
+                  "user": "Alice",
+                  "comment": "Very informative.",
+                  "rating": 5
+                },
+                {
+                  "user": "Bob",
+                  "comment": "Good but a bit outdated.",
+                  "rating": 4
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 4,
+          "name": "Advanced Programming Concepts",
+          "details": {
+            "price": 39.99,
+            "author": "Mark Taylor",
+            "genre": "Programming",
+            "ratings": {
+              "average": 4.8,
+              "reviews": [
+                {
+                  "user": "Charlie",
+                  "comment": "Must-read for developers!",
+                  "rating": 5
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   ]
 }

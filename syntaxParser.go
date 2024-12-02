@@ -81,12 +81,13 @@ func checkSymbol(selector []string, m map[string]interface{}, dataType string) b
 		}
 	} else if strings.Contains(hooks[0], "[]") {
 		formated := strings.ReplaceAll(hooks[0], "[]", "")
-		sel, ok := m[formated].([]map[string]interface{})
+		sel, ok := m[formated].([]interface{})
+
 		if !ok {
 			return false
 		}
 		for _, v := range sel {
-			res := checkSymbol(hooks[1:], v, dataType)
+			res := checkSymbol(hooks[1:], v.(map[string]interface{}), dataType)
 			if !res {
 				return false
 			}
