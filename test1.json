@@ -1,0 +1,26 @@
+{
+  "title": "Example JSON",
+  "tags": ["json", "example", "data"],
+  "metadata": {
+    "author": "John Doe",
+    "version": 1.0,
+    "published": true
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "Item One",
+      "price": 9.99
+    },
+    {
+      "id": 2,
+      "name": "Item Two",
+      "price": 19.99
+    },
+    {
+      "id": 3,
+      "name": "Item Three",
+      "price": 14.99
+    }
+  ]
+}
