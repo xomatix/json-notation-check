@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"regexp"
 	"strings"
@@ -18,10 +17,6 @@ func ParseCommand(input string) []Selector {
 		return make([]Selector, 0)
 	}
 
-	m := make(map[string]interface{})
-	json.Unmarshal([]byte(input), &m)
-	fc := FileContent{content: m}
-
 	// Find all matches in the input string
 	matches := re.FindAllString(input, -1)
 	// fmt.Printf("%v", matches)
@@ -29,20 +24,20 @@ func ParseCommand(input string) []Selector {
 	fmt.Println("Commands Strings:\n")
 	selectors := make([]Selector, len(matches))
 	for i, match := range matches {
-		fmt.Println("Command ", i+1)
-		fmt.Println("=============================")
-		// match = strings.ReplaceAll(match, " ", "")
+		// fmt.Println("Command ", i+1)
+		// fmt.Println("=============================")
+		// // match = strings.ReplaceAll(match, " ", "")
 		// match = strings.ReplaceAll(match, "\n", "")
 		lines := strings.Split(match, ":")
 
-		fmt.Println("selector")
-		fmt.Println(strings.Trim(lines[0], "$"))
+		// fmt.Println("selector")
+		// fmt.Println(strings.Trim(lines[0], "$"))
 
-		fmt.Println("\ntype")
-		fmt.Println(lines[1])
+		// fmt.Println("\ntype")
+		// fmt.Println(lines[1])
 
-		fmt.Println("=============================\n")
-		selectors[i] = Selector{file: fc, hook: strings.Trim(lines[0], "$"), dataType: lines[1]}
+		// fmt.Println("=============================\n")
+		selectors[i] = Selector{hook: strings.Trim(lines[0], "$"), dataType: lines[1]}
 	}
 
 	return selectors

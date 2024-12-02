@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 )
@@ -38,4 +39,16 @@ func OpenAndReadFile(fileName string) string {
 	}
 
 	return string(fileContent)
+}
+
+func FillSelectors(content string, sel []Selector) []Selector {
+	m := make(map[string]interface{})
+	json.Unmarshal([]byte(content), &m)
+
+	newSels := make([]Selector, len(sel))
+
+	for i, v := range sel {
+		newSels[i] = Selector{file: FileContent{content: m}, hook: v.hook, dataType: v.dataType}
+	}
+	return newSels
 }
