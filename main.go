@@ -1,62 +1,56 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 )
 
-// Function to load the JSON file into FileContent structure
-func LoadJSONFile(fileName string) (FileContent, error) {
-	file, err := os.Open(fileName)
-	if err != nil {
-		return FileContent{}, fmt.Errorf("Error opening file: %v", err)
-	}
-	defer file.Close()
-
-	var content map[string]interface{}
-	decoder := json.NewDecoder(file)
-	if err := decoder.Decode(&content); err != nil {
-		return FileContent{}, fmt.Errorf("Error decoding JSON: %v", err)
-	}
-
-	return FileContent{content: content}, nil
-}
-
 func main() {
-	// Sample input for testing
-	fileName := "test1.json"
-	fileContent, err := LoadJSONFile(fileName)
-	if err != nil {
-		fmt.Println("Error loading file:", err)
+	if len(os.Args) != 3 {
+		fmt.Println("You need to provide checker file and an input file with .json extension to run this program")
 		return
 	}
 
-	// Selector examples for testing
-	selectors := []Selector{
-		{file: fileContent, hook: "echo.kkk.aaa.sss[]", dataType: "string"},
-		{file: fileContent, hook: "metadata.version", dataType: "number"},
-		{file: fileContent, hook: "categories[].items[].id", dataType: "string"},
+	checkerFile := os.Args[1]
+	err := CheckFile(checkerFile, JML)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		return
 	}
 
-	// Reset counters before testing
-	ResetCounters()
+	inputFile := os.Args[2]
+	err = CheckFile(inputFile, JSON)
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+		return
+	}
 
-	// Loop through selectors and test
-	for _, sel := range selectors {
-		valid, err := sel.CheckSelector()
-		if err != nil {
-			fmt.Println("Error checking selector:", err)
-			continue
-		}
+	// fmt.Printf("File checker: %s\n", checkerFile)
+	// fmt.Printf("Input json: %s\n", inputFile)
 
-		if valid {
-			TestJSON("Test Message", "green", sel.hook)
+	checkerFileContent := OpenAndReadFile(checkerFile)
+	inputFileContent := OpenAndReadFile(inputFile)
+
+	selArr := ParseCommand(checkerFileContent)
+
+	selArr = FillSelectors(inputFileContent, selArr)
+
+	for _, sel := range selArr {
+		ok, _ := sel.CheckSelector()
+
+		if !ok {
+			fmt.Printf("Selector: %s\n", sel.hook)
+			fmt.Printf("DataType: %s\n", sel.dataType)
+			fmt.Printf("Error: %s\n", "Implement error")
 		} else {
-			TestJSON("Test Message", "red", sel.hook)
+			fmt.Printf("Selector good: %s\n", sel.hook)
+			fmt.Printf("DataType: %s\n", sel.dataType)
 		}
+		fmt.Printf("\n\n")
 	}
 
-	// Print the test results
-	PrintTestResults()
+	// fmt.Printf("Commands: %v\n", commands)
+	// fmt.Printf("Command args: %v\n", commandArgs)
+
+	// println("Hello, World!")
 }
