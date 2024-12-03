@@ -36,16 +36,20 @@ func main() {
 	selArr = FillSelectors(inputFileContent, selArr)
 
 	for _, sel := range selArr {
+		komunikat := "Validation Result"
+
 		ok, _ := sel.CheckSelector()
 
-		if !ok {
-			fmt.Printf("Selector: %s\n", sel.hook)
+		// Use validation result to set color
+		ValidateAndPrintSelector(komunikat, ok, sel.hook)
+
+		if ok {
+			fmt.Printf("DataType: %s\n", sel.dataType)
+		} else {
 			fmt.Printf("DataType: %s\n", sel.dataType)
 			fmt.Printf("Error: %s\n", "Implement error")
-		} else {
-			fmt.Printf("Selector good: %s\n", sel.hook)
-			fmt.Printf("DataType: %s\n", sel.dataType)
 		}
+
 		fmt.Printf("\n\n")
 	}
 
