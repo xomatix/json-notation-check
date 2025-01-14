@@ -115,7 +115,7 @@ DataType: object
 
 - Reports invalid JML syntax with error messages.
 
-![image info](./graph.jpg)
+![image info](./graph.png)
 
 $categories[].items[].id:number
 
